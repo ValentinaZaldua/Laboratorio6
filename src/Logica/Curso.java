@@ -12,25 +12,29 @@
 
 package Logica;
 
-import Persistencia.ArchivoSerializable;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Set;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.io.Serializable;
 
-
-
-public class Curso implements Serializable{
-	private HashMap<Integer, Curso>cursos;
+public class Curso {
 	private int id;
 	private String nombre;
-	private int creditos;
+	private String creditos;
+	
+	
+	public Curso(int id, String nombre, String creditos) {
+		this.id = id;
+		this.nombre = nombre;
+		this.creditos = creditos;
+		
+	}
+	
+	public Curso() {
+		this.id = 0;
+		this.nombre = "";
+		this.creditos = "";
+		
+	}
 	
 
-	
+
 	public int getId() {
 		return id;
 	}
@@ -47,42 +51,19 @@ public class Curso implements Serializable{
 		this.nombre = nombre;
 	}
 
-	public int getCreditos() {
+	public String getCreditos() {
 		return creditos;
 	}
 
-	public void setCreditos(int creditos) {
-		this.creditos = creditos;
-	}
-
-	public HashMap<Integer, Curso> getCursos() {
-		return cursos;
-	}
-
-	public void setCursos(HashMap<Integer, Curso> cursos) {
-		this.cursos = cursos;
-	}
-	
-	
-	public Curso(int id, String nombre, int creditos) {
-		this.id = id;
-		this.nombre = nombre;
+	public void setCreditos(String creditos) {
 		this.creditos = creditos;
 	}
 	
-
-	public Curso() {
-		// TODO Auto-generated constructor stub
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.id + "\t" + this.nombre + "\t" + this.creditos + "\t";
 	}
-
-	public void agregarCurso(int id, String nombre, int creditos) throws Exception {
-		if(this.cursos.containsKey(id)) {
-			throw new Exception ("Curso repetido");
-		}else {
-			Curso curso = new Curso(id, nombre, creditos);
-			this.cursos.put(id, curso);
-		}
-	}
-
 	
+
 }
