@@ -14,16 +14,21 @@ package Logica;
 
 import Persistencia.ArchivoSerializable;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.Set;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Curso {
+
+
+public class Curso implements Serializable{
 	private HashMap<Integer, Curso>cursos;
 	private int id;
 	private String nombre;
 	private int creditos;
+	
 
 	
 	public int getId() {
@@ -59,52 +64,25 @@ public class Curso {
 	}
 	
 	
-
-	public Curso(int id,String nombre, int creditos) {
-		this.cursos = new HashMap<Integer, Curso>();
+	public Curso(int id, String nombre, int creditos) {
 		this.id = id;
 		this.nombre = nombre;
 		this.creditos = creditos;
 	}
 	
-	@Override
-	public String toString() {
-		return this.id + "\t" + this.nombre + "\t" + this.creditos;
+
+	public Curso() {
+		// TODO Auto-generated constructor stub
 	}
-
-	public void cargar() throws Exception {
-	    HashMap<Integer, String> lineasCursos = ArchivoSerializable.cargar("Cursos.mio");
-	    
-	    for (String linea : lineasCursos.values()) {
-	        String[] partes = linea.split(";");
-	        
-	        int id = Integer.parseInt(partes[0]);
-	        String nombre = partes[1];
-	        int creditos = Integer.parseInt(partes[2]);
-	        
-	        this.cursos.agregarCurso(id, nombre, creditos);
-	    }
-	}
-
-
-	public void almacenar() throws FileNotFoundException, IOException {
-		HashMap<Integer, String> lineasCursos = new HashMap<>();
-		for(Integer id : this.cursos.keySet()) {
-			Curso curso = this.cursos.get(id);
-			lineasCursos.put(id, curso.getId() + ";" + curso.getNombre() + ";" + curso.getCreditos() );
-		}
-		ArchivoSerializable.almacenar("Cursos.mio", lineasCursos);
-	}
-	
-
 
 	public void agregarCurso(int id, String nombre, int creditos) throws Exception {
 		if(this.cursos.containsKey(id)) {
-			throw new Exception ("Curso repetido");			
+			throw new Exception ("Curso repetido");
 		}else {
-			Curso curso = new Curso(creditos, nombre, creditos);
+			Curso curso = new Curso(id, nombre, creditos);
 			this.cursos.put(id, curso);
 		}
 	}
 
+	
 }

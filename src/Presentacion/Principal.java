@@ -9,14 +9,14 @@ import java.util.Scanner;
 
 public class Principal {
 	private Curso curso;
+	
+	public Principal() {
+		this.curso = new Curso();
+		this.menu();
+	}
 
 	public static void main(String[] args) {
 		new Principal();
-	}
-
-	public Principal() {
-		this.curso = new Curso(0, null, 0);
-		this.menu();
 	}
 
 	private void menu() {
@@ -35,7 +35,7 @@ public class Principal {
 				if(op == 1) {
 					this.agregarCurso(sc);				
 				}else if(op == 2) {
-					this.consultarCurso();
+					this.consultarCurso(sc);
 				}else if(op == 3) {
 					this.actualizarCurso();
 				}else if(op == 4) {
@@ -51,24 +51,31 @@ public class Principal {
 	}
 
 
-	private void cargar() throws Exception {
-	this.curso.cargar();	
-	}
 
+	private void cargar() throws FileNotFoundException, ClassNotFoundException, IOException {
+	this.curso = (Curso) ArchivoSerializable.cargar("Cursos.mio");	
+	}
 
 	private void almacenar() throws FileNotFoundException, IOException {
-		this.curso.almacenar();
+		ArchivoSerializable.almacenar("Cursos.mio", this.curso);
+		System.out.println();
 	}
-
 
 	private void actualizarCurso() {
-
+		
 	}
 
 
-	private void consultarCurso () {
+	private void consultarCurso (Scanner sc) {
+		System.out.println("Ingrese el Id del curso que desea buscar:");
+	    int idBuscado = sc.nextInt();
+		    System.out.println("id\tnombre\tcreditos");
+		    
+		    for(Integer id : this.curso.getCursos().keySet()) {
+		        System.out.println(this.curso.getId());
+		    }
+		}
 
-	}
 
 
 	private void agregarCurso(Scanner sc) throws Exception {
